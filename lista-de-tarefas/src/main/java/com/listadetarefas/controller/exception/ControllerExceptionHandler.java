@@ -26,6 +26,18 @@ public class ControllerExceptionHandler {
         return ResponseEntity.status(code).body(this.stardardError);
     }
 
+    @ExceptionHandler(TarefaDuplicadaException.class)
+    public ResponseEntity<StardardError> entityNotFound(TarefaDuplicadaException err, HttpServletRequest httpServletRequest) {
+        HttpStatus code = HttpStatus.CONFLICT;
+        stardardError.setTimestamp(Instant.now());
+        stardardError.setStatus(code.value());
+        stardardError.setError("Duplicate Unique Key");
+        stardardError.setMessage(err.getMessage());
+        stardardError.setPath(httpServletRequest.getRequestURI());
+
+        return ResponseEntity.status(code).body(this.stardardError);
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<StardardError> validation(MethodArgumentNotValidException err, HttpServletRequest httpServletRequest) {
         HttpStatus code = HttpStatus.BAD_REQUEST;

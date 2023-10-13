@@ -18,7 +18,7 @@ public record TarefaDto(
         Double custo,
         @NotNull(message = "Data Limite da Terega não pode ser null.")
         LocalDate dataLimite,
-        int ordemDeApresentação
+        Long ordemDeApresentação
 ) {
     public Tarefa toTarefa() {
         return new Tarefa(this.nomeDaTarefa, this.custo, this.dataLimite);

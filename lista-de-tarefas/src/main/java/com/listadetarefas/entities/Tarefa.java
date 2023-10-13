@@ -7,13 +7,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.Calendar;
 
 @Entity
-@Table(name = "Tarefas")
 @Getter
 @Setter
 @NoArgsConstructor
+@Table(name = "Tarefas", uniqueConstraints = {@UniqueConstraint(name = "UNIQUE_CONSTRAINT_NOME_DA_TAREFA", columnNames = {"nomeDaTarefa"})})
 public class Tarefa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +27,8 @@ public class Tarefa {
     @Temporal(TemporalType.DATE)
     private LocalDate dataLimite;
 
-    private int ordemDeApresentação;
+    @Column(nullable = false)
+    private Long ordemDeApresentação;
 
     public Tarefa(String nome, Double custo, LocalDate dataLimite) {
         this.nomeDaTarefa = nome;
